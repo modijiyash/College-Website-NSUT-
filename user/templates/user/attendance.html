@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Attendance Records - CampusConnect</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #2c3e50, #4ca1af);
+            color: #fff;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #fff;
+        }
+
+        th {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .summary {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .summary p {
+            font-size: 1.2rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            table {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Attendance Records</h2>
+
+        <!-- Attendance Table -->
+        <table id="attendance-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Class/Event</th>
+                    <th>Status</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody id="attendance-body">
+                <!-- Attendance records will be populated here -->
+            </tbody>
+        </table>
+
+        <!-- Summary Section -->
+        <div class="summary" id="attendance-summary">
+            <p id="total-attended">Total Classes Attended: 0</p>
+            <p id="total-absent">Total Classes Absent: 0</p>
+            <p id="attendance-percentage">Attendance Percentage: 0%</p>
+        </div>
+    </div>
+
+    <script>
+        // Sample attendance data (in a real application, this would come from the backend)
+        const attendanceData = [
+            { date: '2024-10-01', className: 'Mathematics', status: 'Present', notes: '' },
+            { date: '2024-10-02', className: 'Physics', status: 'Absent', notes: 'Sick' },
+            { date: '2024-10-03', className: 'Chemistry', status: 'Present', notes: '' },
+            { date: '2024-10-04', className: 'Biology', status: 'Present', notes: '' },
+            { date: '2024-10-05', className: 'History', status: 'Absent', notes: 'Family Emergency' }
+        ];
+
+        // Function to populate attendance table
+        function populateAttendanceTable(data) {
+            const tableBody = document.getElementById('attendance-body');
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            let totalAttended = 0;
+            let totalAbsent = 0;
+
+            data.forEach(record => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${record.date}</td>
+                    <td>${record.className}</td>
+                    <td>${record.status}</td>
+                    <td>${record.notes}</td>
+                `;
+                tableBody.appendChild(row);
+
+                // Count attendance
+                if (record.status === 'Present') {
+                    totalAttended++;
+                } else {
+                    totalAbsent++;
+                }
+            });
+
+            // Update summary
+            updateSummary(totalAttended, totalAbsent);
+        }
+
+        // Function to update summary statistics
+        function updateSummary(attended, absent) {
+            const totalClasses = attended + absent;
+            const attendancePercentage = totalClasses > 0 ? ((attended / totalClasses) * 100).toFixed(2) : 0;
+
+            document.getElementById('total-attended').textContent = `Total Classes Attended: ${attended}`;
+            document.getElementById('total-absent').textContent = `Total Classes Absent: ${absent}`;
+            document.getElementById('attendance-percentage').textContent = `Attendance Percentage: ${attendancePercentage}%`;
+        }
+
+        // Populate the table on page load
+        window.onload = () => {
+            populateAttendanceTable(attendanceData);
+        };
+    </script>
+</body>
+</html>

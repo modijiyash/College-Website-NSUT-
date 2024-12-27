@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Resource Booking - CampusConnect</title>
+    <style>
+        /* Navigation Bar */
+        .navbar {
+            background-color:#FFFDD0;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            color: rgb(19, 7, 7);
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            display: flex;
+        }
+
+        .navbar ul li {
+            margin-left: 20px;
+        }
+
+        .navbar ul li a {
+            color: black;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #2c3e50, #4ca1af);
+            color: #fff;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: #E1E8ED;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Resource List */
+        .resource-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        /* Resource Card */
+        .resource-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            width: 300px;
+            position: relative;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-align: center;
+        }
+
+        .resource-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .resource-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .resource-card p {
+            font-size: 1rem;
+            color: #dcdde1;
+        }
+
+        .resource-card .resource-info {
+            font-size: 0.9rem;
+            margin-top: 15px;
+        }
+
+        .resource-card button {
+            background-color: #1abc9c;
+            color: #fff;
+            border: none;
+            padding: 0.8rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .resource-card button:hover {
+            background-color: #16a085;
+        }
+
+        /* Booking Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #34495e;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 500px;
+            text-align: center;
+            color: #E1E8ED;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .modal-content p {
+            font-size: 1rem;
+            color: #E1E8ED;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #aaa;
+        }
+
+        .modal-close:hover {
+            color: #fff;
+        }
+
+        .modal-content label {
+            display: block;
+            margin: 10px 0;
+            font-size: 1rem;
+        }
+
+        .modal-content input[type="date"],
+        .modal-content input[type="time"] {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            width: 100%;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        .modal-content button {
+            background-color: #1abc9c;
+            color: #fff;
+            border: none;
+            padding: 0.8rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-content button:hover {
+            background-color: #16a085;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .resource-card {
+                width: 100%;
+            }
+
+            .modal-content {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h1>NSUTConnect</h1>
+        <ul>
+            <li><a href="homePage">Home</a></li>
+            <li><a href="networking">Networking</a></li>
+            <li><a href="eventsfinal">Events</a></li>
+            <li><a href="login">Attendance</a></li>
+            <li><a href="#">Resources</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <h2>Book Your Campus Resources</h2>
+
+        <!-- Resource List Section -->
+        <div class="resource-list" id="resource-list">
+            <!-- Resource 1 -->
+            <div class="resource-card">
+                <h3>Study Room A</h3>
+                <p>A quiet room for group study with seating for 6 people.</p>
+                <div class="resource-info">
+                    <p><strong>Location:</strong> Library, 2nd Floor</p>
+                    <p><strong>Availability:</strong> 8:00 AM - 10:00 PM</p>
+                </div>
+                <button class="book-now-btn" data-resource="Study Room A">Book Now</button>
+            </div>
+
+            <!-- Resource 2 -->
+            <div class="resource-card">
+                <h3>Gym Facility</h3>
+                <p>Well-equipped gym for students to work out and stay fit.</p>
+                <div class="resource-info">
+                    <p><strong>Location:</strong> Sports Complex</p>
+                    <p><strong>Availability:</strong> 6:00 AM - 9:00 PM</p>
+                </div>
+                <button class="book-now-btn" data-resource="Gym Facility">Book Now</button>
+            </div>
+
+            <!-- Resource 3 -->
+            <div class="resource-card">
+                <h3>Conference Hall</h3>
+                <p>A large hall suitable for meetings and presentations.</p>
+                <div class="resource-info">
+                    <p><strong>Location:</strong> Admin Block</p>
+                    <p><strong>Availability:</strong> 9:00 AM - 5:00 PM</p>
+                </div>
+                <button class="book-now-btn" data-resource="Conference Hall">Book Now</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="booking-modal">
+        <div class="modal-content">
+            <span class="modal-close" id="modal-close">&times;</span>
+            <h3>Book Resource</h3>
+            <p id="modal-text">You are booking <strong>Study Room A</strong></p>
+
+            <!-- Date and Time Selection -->
+            <label for="booking-date">Select Date:</label>
+            <input type="date" id="booking-date" required>
+
+            <label for="booking-time">Select Time:</label>
+            <input type="time" id="booking-time" required>
+
+            <button id="confirm-booking">Confirm Booking</button>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        const modal = document.getElementById('booking-modal');
+        const closeModal = document.getElementById('modal-close');
+        const modalText = document.getElementById('modal-text');
+        const confirmBooking = document.getElementById('confirm-booking');
+
+        // Attach event listeners to all book-now buttons
+        document.querySelectorAll('.book-now-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const resource = button.getAttribute('data-resource');
+                modalText.innerHTML = `You are booking <strong>${resource}</strong>`;
+                modal.style.display = 'flex';
+            });
+        });
+
+        // Close the modal
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+
+        // Confirm booking (you can add booking logic here)
+        confirmBooking.addEventListener('click', () => {
+            const selectedDate = document.getElementById('booking-date').value;
+            const selectedTime = document.getElementById('booking-time').value;
+            if (selectedDate && selectedTime) {
+                alert(`${modalText.textContent} on ${selectedDate} at ${selectedTime}, confirmed!`);
+                modal.style.display = 'none';
+            } else {
+                alert('Please select a date and time for your booking.');
+            }
+        });
+    </script>
+</body>
+</html>

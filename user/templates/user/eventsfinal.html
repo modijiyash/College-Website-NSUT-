@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Campus Events - CampusConnect</title>
+    <style>
+        /* Navigation Bar */
+        .navbar {
+            background-color:#FFFDD0;
+            padding: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            color: rgb(19, 7, 7);
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            display: flex;
+        }
+
+        .navbar ul li {
+            margin-left: 20px;
+        }
+
+        .navbar ul li a {
+            color: black;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        /* Global Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to right, #141E30, #243B55);
+            color: #fff;
+            padding: 20px;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: #E1E8ED;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .event-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: space-between;
+        }
+
+        /* Event Card Styling */
+        .event-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+            border-radius: 15px;
+            width: 30%;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .event-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        .event-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            z-index: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .event-card:hover::before {
+            opacity: 1;
+        }
+
+        .event-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #fff;
+            position: relative;
+            z-index: 1;
+        }
+
+        .event-card p {
+            font-size: 1rem;
+            color: #dcdde1;
+            position: relative;
+            z-index: 1;
+        }
+
+        .event-card .event-info {
+            font-size: 0.9rem;
+            margin-top: 15px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .event-card button {
+            background-color: #1abc9c;
+            color: #fff;
+            border: none;
+            padding: 0.8rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            font-size: 1rem;
+            transition: background-color 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .event-card button:hover {
+            background-color: #16a085;
+        }
+
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #34495e;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 500px;
+            text-align: center;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+            color: #fff;
+        }
+
+        .modal-content p {
+            font-size: 1rem;
+            color: #E1E8ED;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: #aaa;
+        }
+
+        .modal-close:hover {
+            color: #fff;
+        }
+
+        @media (max-width: 768px) {
+            .event-card {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <h1>NSUTConnect</h1>
+        <ul>
+            <li><a href="homePage">Home</a></li>
+            <li><a href="networking">Networking</a></li>
+            <li><a href="#">Events</a></li>
+            <li><a href="attendance">Attendance</a></li>
+            <li><a href="resoures">Resources</a></li>
+        </ul>
+    </div>
+
+    <div class="container">
+        <h2>Explore Campus Events</h2>
+
+        <!-- Event List Section -->
+        <div class="event-list">
+            <!-- Event 1 -->
+            <div class="event-card">
+                <h3>Art Exhibition</h3>
+                <p>Join us for a celebration of student art!</p>
+                <div class="event-info">
+                    <p><strong>Date:</strong> October 20, 2024</p>
+                    <p><strong>Time:</strong> 2:00 PM - 5:00 PM</p>
+                    <p><strong>Location:</strong> University Hall</p>
+                </div>
+                <button class="rsvp-btn">Join Now</button>
+            </div>
+
+            <!-- Event 2 -->
+            <div class="event-card">
+                <h3>Hackathon</h3>
+                <p>Collaborate and innovate with fellow students!</p>
+                <div class="event-info">
+                    <p><strong>Date:</strong> October 25, 2024</p>
+                    <p><strong>Time:</strong> 9:00 AM - 6:00 PM</p>
+                    <p><strong>Location:</strong> Computer Science Building</p>
+                </div>
+                <button class="rsvp-btn">Join Now</button>
+            </div>
+
+            <!-- Event 3 -->
+            <div class="event-card">
+                <h3>Music Concert</h3>
+                <p>Enjoy live music performances from student bands.</p>
+                <div class="event-info">
+                    <p><strong>Date:</strong> November 2, 2024</p>
+                    <p><strong>Time:</strong> 6:00 PM - 9:00 PM</p>
+                    <p><strong>Location:</strong> Main Auditorium</p>
+                </div>
+                <button class="rsvp-btn">Join Now</button>
+            </div>
+        </div>
+
+    <!-- Modal for event details -->
+    <div class="modal" id="event-modal">
+        <div class="modal-content">
+            <span class="modal-close" id="modal-close">&times;</span>
+            <h3>Event Details</h3>
+            <p id="event-description"></p>
+        </div>
+    </div>
+
+    <script>
+        // Modal functionality
+        const modal = document.getElementById('event-modal');
+        const closeModal = document.getElementById('modal-close');
+        const eventCards = document.querySelectorAll('.rsvp-btn');
+
+        // Open modal when clicking RSVP
+        eventCards.forEach((card) => {
+            card.addEventListener('click', () => {
+                alert("Thank you for your interest! Event details will be emailed to you!")
+            });
+        });
+
+        // Close modal
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        };
+
+    </script>
+</body>
+</html>
